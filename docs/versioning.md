@@ -75,7 +75,7 @@ That regenerates `<plugin>/.claude-plugin/plugin.json`, the entry in `.claude-pl
 
 ## Breaking changes
 
-CalVer carries no signal for a breaking change — `26.12.0` looks exactly like `26.11.0` whether a skill was renamed or a typo was fixed. Renames, removals, and changes to what a skill actually does are therefore governed by the deprecation policy in `docs/deprecation.md`, which defines the notice a user is owed before anything they depend on disappears.
+CalVer carries no signal for a breaking change — `26.12.0` looks exactly like `26.11.0` whether a skill was renamed or a typo was fixed. Renames, removals, and changes to what a skill actually does are therefore governed by the [deprecation policy](deprecation.md), which defines the notice a user is owed before anything they depend on disappears.
 
 ## See also
 
