@@ -434,9 +434,16 @@ def check_unique_names(root: Path, errors: list[str]) -> None:
                 errors.append(f"{kind} name {name!r} is used by more than one {owner}: {', '.join(where)}")
 
 
-def check_catalog(catalog: dict, errors: list[str]) -> None:
+def check_catalog(catalog, errors: list[str]) -> None:
+    if not isinstance(catalog, dict):
+        errors.append(f"{CATALOG}: must be a JSON object")
+        return
+    plugins = catalog.get("plugins", [])
+    if not isinstance(plugins, list):
+        errors.append(f"{CATALOG}: plugins must be a list")
+        return
     seen = set()
-    for i, entry in enumerate(catalog.get("plugins", [])):
+    for i, entry in enumerate(plugins):
         if not isinstance(entry, dict):
             errors.append(f"{CATALOG}: plugins[{i}] must be an object")
             continue
@@ -445,9 +452,10 @@ def check_catalog(catalog: dict, errors: list[str]) -> None:
         for k in ("name", "source", "category"):
             if not (isinstance(entry.get(k), str) and entry[k]):
                 errors.append(f"{where}: {k} must be a non-empty string")
-        if name in seen:
-            errors.append(f"{where} is listed more than once")
-        seen.add(name)
+        if isinstance(name, str) and name:
+            if name in seen:
+                errors.append(f"{where} is listed more than once")
+            seen.add(name)
 
 
 def check_agents(pdir: Path, root: Path, errors: list[str]) -> None:
@@ -470,6 +478,8 @@ def check(root: Path, run_claude: bool) -> list[str]:
     errors: list[str] = []
     catalog = load(root / CATALOG)
     check_catalog(catalog, errors)
+    if errors:
+        return errors
     listed = {e.get("source") for e in catalog.get("plugins", []) if isinstance(e, dict)}
     for pdir in plugin_dirs(root):
         src = "./" + pdir.relative_to(root).as_posix()

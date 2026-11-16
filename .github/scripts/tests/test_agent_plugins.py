@@ -256,9 +256,22 @@ def edit_catalog(repo, change):
     (lambda ps: ps[0].update(category=""), "category must be a non-empty string"),
     (lambda ps: ps.append(dict(ps[0])), "plugin 'alpha' is listed more than once"),
     (lambda ps: ps[0].update(source="./plugins/gone"), "plugins/gone/plugin.json: missing"),
+    (lambda ps: ps[0].update(name=["alpha"]), "name must be a non-empty string"),
+    (lambda ps: ps[0].update(source=["./plugins/alpha"]), "source must be a non-empty string"),
+    (lambda ps: ps[0].update(category=None), "category must be a non-empty string"),
+    (lambda ps: ps.__setitem__(0, None), "plugins[0] must be an object"),
 ])
 def test_catalog_entry_rules(ap, repo, change, message):
     edit_catalog(repo, change)
+    assert any(message in e for e in problems(ap, repo))
+
+
+@pytest.mark.parametrize("catalog, message", [
+    ([], "must be a JSON object"),
+    ({"plugins": {}}, "plugins must be a list"),
+])
+def test_catalog_structure_rules(ap, repo, catalog, message):
+    write(repo / ".claude-plugin/marketplace.json", catalog)
     assert any(message in e for e in problems(ap, repo))
 
 
