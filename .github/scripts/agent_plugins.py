@@ -340,7 +340,7 @@ def local_links(f: Path):
 
 
 def resolves(dest: Path) -> bool:
-    return dest.exists() or dest.with_suffix(".md").exists()
+    return dest.exists() or (not dest.suffix and dest.with_suffix(".md").exists())
 
 
 def check_skills(pdir: Path, root: Path, errors: list[str]) -> None:
