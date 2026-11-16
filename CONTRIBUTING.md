@@ -117,6 +117,8 @@ Before submitting your PR, ensure:
 - [ ] README.md is updated if adding a new agent
 - [ ] Commit messages are clear and descriptive
 - [ ] `pixi run plugins-check` passes (run `pixi run plugins-sync` first if you changed a manifest or the catalog)
+- [ ] `CHANGELOG.md` has an entry under `## [Unreleased]` for each plugin you changed
+- [ ] Any rename, removal, or intent-breaking skill change follows [the deprecation policy](docs/deprecation.md)
 - [ ] No sensitive information or credentials are included
 
 ## 🧪 Testing Your Agent
@@ -152,6 +154,14 @@ Some rules matter to clients other than Claude Code:
 - **Keep each skill self-contained.** OpenCode and other skills-only clients install a skill directory on its own, so every file and relative link in a skill must stay inside that skill's directory. Link to a sibling skill by naming it (for example "see the `design-tokens` skill"), not with `../design-tokens/SKILL.md`. Put shared material in each skill's `references/`.
 - **MCP servers** need both files. `.mcp.json` is for Claude Code. `mcp.json` is the portable version that Codex, Copilot and Cursor read: it has the Agent Plugins `$schema`, an explicit `type` on each server, and no other top-level fields. Cursor doesn't expand `${PLUGIN_ROOT}` or `${PLUGIN_DATA}`, so avoid them in `mcp.json`.
 - **Agent `skills:`** must be a YAML list (`skills:` then `  - name`), even for one skill. Claude Code accepts a string, but Copilot CLI silently skips an agent whose `skills` is a plain string, so `check` requires a list.
+
+## 🏷️ Versioning and Deprecation
+
+Releases use Ubuntu-style Calendar Versioning, and each plugin's manifest version is the release in which that plugin last changed. See the [versioning policy](docs/versioning.md) before editing a `version` field.
+
+Renaming or removing a skill, command, agent or plugin — and changing a skill so that a user's existing prompt no longer reaches the same behavior — requires advance notice under the [deprecation policy](docs/deprecation.md).
+
+Every pull request adds its entry to [`CHANGELOG.md`](CHANGELOG.md) under `## [Unreleased]`, in the subsection for the plugin it changes.
 
 ## 📊 Evaluating Skills
 

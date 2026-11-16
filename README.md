@@ -409,6 +409,8 @@ We welcome contributions of new agents, skills, and improvements! Please see [CO
 For detailed information about the plugins and their contents:
 
 - [Contributing Guidelines](CONTRIBUTING.md) - How to contribute to this repository
+- [Versioning Policy](docs/versioning.md) - How releases and plugin versions are numbered
+- [Deprecation Policy](docs/deprecation.md) - Notice you get before a skill, command or plugin changes or disappears
 - [HoloViz Ecosystem Overview](community-plugins/holoviz-visualization/references/holoviz-ecosystem.md) - Introduction to the HoloViz ecosystem
 - [HoloViz Library Matrix](community-plugins/holoviz-visualization/references/library-matrix.md) - Comparison of HoloViz libraries and when to use each
 
