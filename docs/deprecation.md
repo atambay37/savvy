@@ -42,24 +42,41 @@ Add the changed behavior under a new name and deprecate the old skill on the clo
 
 Keep the name and change the behavior, having announced it first and served the full notice period. Use this only where a parallel skill would confuse more than it helps — two near-identical skills competing for the same prompts, for instance.
 
+### Commands, agents and whole plugins
+
+Both routes apply to **commands, agents and plugins** by analogy. Route 2 means shipping the replacement under its new name alongside the old one; Route 1 means changing it in place once the notice period has run. The clock and the three required artifacts are identical — only the file holding the deprecation note differs.
+
 ## The clock
 
-> A deprecated thing is removed no earlier than **both** the next release **and** 90 days after the deprecation was announced. Whichever comes later governs.
+> A deprecation takes effect — the thing is removed, or an in-place change ships — no earlier than **both** the next release **and** 90 days after the deprecation was announced. Whichever comes later governs.
+
+**A deprecation is announced when the pull request carrying the deprecation note and the changelog entry merges.** That merge starts the 90-day count. The release that subsequently carries that announcement to users satisfies the release clause.
+
+**A micro release counts.** `26.11.1` satisfies the release clause exactly as `26.12.0` does. Letting it count costs nothing, because the two conditions are conjunctive — the 90-day floor still has to elapse, so cutting a quick micro cannot shorten anyone's notice.
 
 Both conditions, not either. Releases here have no fixed cadence, so each clause covers a different failure:
 
 - The **release clause** means a fast run of releases cannot retire something in a week just because two versions shipped.
 - The **90-day clause** means a slow stretch still gives users real calendar time to notice.
 
-**A quiet period does not unlock removal.** If 90 days pass and no release has shipped, the thing stays. Elapsed time alone is never sufficient — a release must also have happened. The clock starts at the announcement, not at the pull request that prompted it.
+**A quiet period does not unlock removal.** If 90 days pass and no release has shipped, the thing stays. Elapsed time alone is never sufficient — a release must also have happened.
+
+**This gates Route 1 as well.** Deprecating in place removes nothing, but the behavior change is the gated event: it ships only once both conditions are met. An in-place change that lands before the clock expires is the thing this policy exists to prevent, whether or not a file disappeared.
 
 ## What a deprecation requires
 
 Every deprecation, on either route, ships with all three:
 
-1. **A note in the affected `SKILL.md`**, saying what is deprecated, what to use instead, and the earliest release it may be removed in.
-2. **A `### Deprecated` entry in `CHANGELOG.md`**, under that plugin's section.
+1. **A note in the affected file** — the skill's `SKILL.md`, the command's or agent's markdown file, or the plugin's `README.md` when a whole plugin is being retired. It states what is deprecated, what to use instead, and the **earliest removal date**, which is 90 days from the merge written out in full, together with the release rule. For example:
+
+   > *Deprecated 2026-11-20. Removable no earlier than 2027-02-18, and not before the first release on or after that date. Use `new-skill-name` instead.*
+
+   Write the date, not a release number. Under CalVer with no fixed cadence, nobody knows at announcement time what the qualifying release will be called.
+
+2. **A `#### Deprecated` entry in `CHANGELOG.md`**, nested under that plugin's `###` section.
 3. **A line in the release announcement**, so it reaches users who read release notes and never read the repository.
+
+**If nothing replaces it**, say so explicitly and say why — "no replacement; this skill is obsolete because X" is a complete answer. The clock and all three artifacts apply unchanged.
 
 ### Removing a whole plugin
 

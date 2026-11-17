@@ -161,7 +161,7 @@ Releases use Ubuntu-style Calendar Versioning, and each plugin's manifest versio
 
 Renaming or removing a skill, command, agent or plugin — and changing a skill so that a user's existing prompt no longer reaches the same behavior — requires advance notice under the [deprecation policy](docs/deprecation.md).
 
-Every pull request adds its entry to [`CHANGELOG.md`](CHANGELOG.md) under `## [Unreleased]`, in the subsection for the plugin it changes.
+Every pull request adds its entry to [`CHANGELOG.md`](CHANGELOG.md) under `## [Unreleased]`, in the subsection for the plugin it changes — or under `### Repository` if it changes no plugin, as a CI, tooling or documentation pull request does.
 
 ## 📊 Evaluating Skills
 

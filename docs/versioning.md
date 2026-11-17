@@ -18,6 +18,8 @@ Releases are numbered `YY.M.MICRO`:
 | `v26.11.1` | A fix shipped between releases, Ubuntu point-release style |
 | `v26.4.0` | The April 2026 release |
 
+**MICRO counts additional releases within the same month, starting at 0.** The first release in a month is `.0`, the next is `.1`, and so on. Usually that later release is a fix shipped between months — the Ubuntu point-release case — but the number is mechanical, so a second feature release in the same month is simply the next MICRO rather than a problem.
+
 No cadence is fixed. Releases happen when there is something to release.
 
 ### No zero-padding
@@ -50,6 +52,8 @@ git diff --name-only <previous-tag>..HEAD -- community-plugins/<name>
 ```
 
 If that returns at least one path, the plugin changed and its version becomes the new release. If it returns nothing, the version stays as it is.
+
+**Order matters.** Compute the changed set **before editing any manifest**, and commit the version bumps **before cutting the tag**. A version bump is itself a write inside the plugin's directory, so computing the set after bumping — or tagging before the bumps land — marks every plugin as changed at every release, destroying the signal this rule exists to provide.
 
 ### Worked example
 
