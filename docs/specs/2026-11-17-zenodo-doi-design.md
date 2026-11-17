@@ -28,7 +28,7 @@ Zenodo mints a DOI for each published GitHub Release. We want everything in plac
 
 - The concept DOI does not exist until the first release is published, so the badge and DOI lines land in a follow-up after `v26.11.0`.
 - `CITATION.cff` on main says `version: 2026.11.0`, `date-released: 2026-11-16`. The CalVer policy uses `26.11.0` (tag `v26.11.0`), and nothing has been released.
-- Zenodo's docs list `version` among the `CITATION.cff` fields it reads; third-party docs say the version comes from the release tag. The sandbox run settles which.
+- Zenodo's docs list `version` among the `CITATION.cff` fields it reads; third-party docs say the version comes from the release tag. **Resolved in review** from the zenodo-rdm / invenio-github source: Zenodo ignores `version`, `date-released`, and `doi` in `CITATION.cff`, and takes the version from the tag (`v26.11.0`) and the date from the publish time. The sandbox run confirms it. Pre-releases are archived (only drafts are skipped).
 - Enabling the integration for an org repo may need a uw-ssec org owner to approve the Zenodo OAuth app.
 
 ## Approaches
