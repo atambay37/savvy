@@ -32,19 +32,19 @@ Before merging a change to a skill, answer one question:
 
 ## The deprecation path
 
-Two routes. **Route 2 is the default.**
+Two routes. **Route 1 is the default.**
 
-### Route 2 — ship it as a new skill (preferred)
+### Route 1 — ship it as a new skill (default)
 
 Add the changed behavior under a new name and deprecate the old skill on the clock below. During the overlap a user gets both behaviors, and nothing breaks underneath them. Prefer this whenever intent has genuinely changed.
 
-### Route 1 — deprecate in place (fallback)
+### Route 2 — deprecate in place (fallback)
 
 Keep the name and change the behavior, having announced it first and served the full notice period. Use this only where a parallel skill would confuse more than it helps — two near-identical skills competing for the same prompts, for instance.
 
 ### Commands, agents and whole plugins
 
-Both routes apply to **commands, agents and plugins** by analogy. Route 2 means shipping the replacement under its new name alongside the old one; Route 1 means changing it in place once the notice period has run. The clock and the three required artifacts are identical — only the file holding the deprecation note differs.
+Both routes apply to **commands, agents and plugins** by analogy. Route 1 means shipping the replacement under its new name alongside the old one; Route 2 means changing it in place once the notice period has run. The clock and the three required artifacts are identical — only the file holding the deprecation note differs.
 
 ## The clock
 
@@ -61,7 +61,7 @@ Both conditions, not either. Releases here have no fixed cadence, so each clause
 
 **A quiet period does not unlock removal.** If 90 days pass and no release has shipped, the thing stays. Elapsed time alone is never sufficient — a release must also have happened.
 
-**This gates Route 1 as well.** Deprecating in place removes nothing, but the behavior change is the gated event: it ships only once both conditions are met. An in-place change that lands before the clock expires is the thing this policy exists to prevent, whether or not a file disappeared.
+**This gates Route 2 as well.** Deprecating in place removes nothing, but the behavior change is the gated event: it ships only once both conditions are met. An in-place change that lands before the clock expires is the thing this policy exists to prevent, whether or not a file disappeared.
 
 ## What a deprecation requires
 

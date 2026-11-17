@@ -84,4 +84,4 @@ CalVer carries no signal for a breaking change — `26.12.0` looks exactly like 
 ## See also
 
 - [Contributing Guidelines](../CONTRIBUTING.md)
-- `CHANGELOG.md`, which records what changed in each release in the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format
+- [`CHANGELOG.md`](../CHANGELOG.md), which records what changed in each release in the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format
