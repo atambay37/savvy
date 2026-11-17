@@ -4,6 +4,9 @@ A skills-first Claude Code plugin for Research Software Engineers and researcher
 
 **Version:** 0.2.0
 
+> [!NOTE]
+> **Claude Code and Cursor only:** this plugin's agents and commands are written for Claude Code. Cursor loads them too, but GitHub Copilot, Codex, Gemini CLI and OpenCode don't. Its skills follow the [Agent Skills](https://agentskills.io/) format and work in all of these clients. See [Installing the plugins](https://github.com/uw-ssec/savvy/blob/main/docs/install.md) for what each client loads.
+
 ## Background & Motivation
 
 Research software is written under pressures that general-purpose development rarely faces all at once: it is exploratory and fast-changing, its correctness is often the actual research result, it must be reproducible by others (and by your future self), and it is frequently handed between students, collaborators, and sessions. AI coding assistants are excellent at *writing* code — but used ad hoc, they tend to skip the very rigor research demands. They jump into edits before understanding the existing code or the prior art, lose the reasoning behind decisions when a session ends, and rarely stop to capture provenance or to verify that a result actually holds.

@@ -11,6 +11,8 @@ on:
       - '*.md'
       - 'docs/**'
       - 'marketplace/**'
+      - 'docs/catalog.md'
+      - 'docs/catalog.yml'
       - '.github/workflows/validate-plugins.yml'
       - '.github/scripts/**'
       - 'pixi.toml'
@@ -52,6 +54,12 @@ jobs:
           # or skill names, skill files or links that leave their skill
           # directory, and relative links in any doc that point at nothing.
           pixi run plugins-check
+
+      - name: Check the skill catalog
+        run: |
+          # Fails when a skill or plugin has no entry in docs/catalog.yml, or when
+          # docs/catalog.md is out of date (run `pixi run catalog-sync`).
+          pixi run catalog-check
 
       - name: Validate against the official Agent Plugins schemas
         run: |

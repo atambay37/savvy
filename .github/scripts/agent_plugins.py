@@ -21,10 +21,10 @@ Generated from them (``sync`` writes, ``check`` compares):
   portable manifest, so it gets a copy of the shared fields;
 - the shared fields of each ``.claude-plugin/marketplace.json`` entry;
 - ``.agents/plugins/marketplace.json`` (Codex);
-- ``.cursor-plugin/marketplace.json`` (Cursor). There is deliberately no
-  ``.cursor-plugin/plugin.json``: without one, Cursor loads each package as an
-  Agent Plugin (skills and MCP only) instead of parsing the Claude-format
-  agents and commands as Cursor components.
+- ``.cursor-plugin/marketplace.json`` (Cursor). There is no
+  ``.cursor-plugin/plugin.json``: Cursor loads each package from its root
+  plugin.json. Cursor documents that format as skills and MCP only, but
+  Cursor 3.28.7 also loads the package's ``agents/`` and ``commands/``.
 
 GitHub Copilot (CLI and VS Code) gets no generated files. With a root
 plugin.json, Copilot reads agents and commands only from its own extension
@@ -374,9 +374,15 @@ def check_skills(pdir: Path, root: Path, errors: list[str]) -> None:
         for k in ("license", "compatibility", "allowed-tools"):
             if k in fm and not isinstance(fm[k], str):
                 errors.append(f"{srel}/SKILL.md: {k} must be a string")
-        # The spec wants string values; this repo's skills list their references under metadata.
-        if not isinstance(fm.get("metadata", {}), dict):
+        # The spec defines metadata as a map of string keys to string values. YAML reads an
+        # unquoted date such as 2026-10-27 as a date, so quote it. List file paths space-separated.
+        metadata = fm.get("metadata", {})
+        if not isinstance(metadata, dict):
             errors.append(f"{srel}/SKILL.md: metadata must be a mapping")
+        else:
+            for k, v in metadata.items():
+                if not isinstance(k, str) or not isinstance(v, str):
+                    errors.append(f"{srel}/SKILL.md: metadata.{k} must be a string, not {type(v).__name__}")
         for k in sorted(set(fm) - SKILL_FIELDS, key=str):
             errors.append(f"{srel}/SKILL.md: frontmatter field {k!r} is not in the Agent Skills spec")
         for f in sorted(skill.rglob("*")):
