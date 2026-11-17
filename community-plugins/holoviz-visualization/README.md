@@ -8,6 +8,9 @@ The definitive Claude Code plugin for mastering the HoloViz ecosystem. Get strat
 
 ---
 
+> [!NOTE]
+> **Claude Code and Cursor only:** this plugin's agents and commands are written for Claude Code. Cursor loads them too, but GitHub Copilot, Codex, Gemini CLI and OpenCode don't. Its skills follow the [Agent Skills](https://agentskills.io/) format and work in all of these clients. See [Installing the plugins](https://github.com/uw-ssec/savvy/blob/main/docs/install.md) for what each client loads.
+
 ## Overview
 
 This production-ready, expert-quality Claude Code plugin provides comprehensive coverage of the entire HoloViz ecosystem through specialized AI agents, detailed skills, and curated resources. Whether you're building interactive dashboards, visualizing massive datasets, creating geographic applications, or exploring data with AI, this plugin offers strategic guidance and production-ready patterns.
