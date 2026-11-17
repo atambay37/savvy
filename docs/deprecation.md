@@ -88,7 +88,7 @@ A rename is mechanically checkable: the identifier is right there in the diff, a
 
 Intent is not. Whether a reworded skill still does the same job is a judgment made by the person writing the change and the person reviewing it, and reasonable people will sometimes disagree. This policy does not pretend otherwise, and no CI check validates it today. What it does is make the question explicit and put it in front of a reviewer, which is the part that was missing.
 
-The author's assertion about intent belongs in the pull request template tracked by [#139](https://github.com/uw-ssec/savvy/issues/139).
+The author's assertion about intent belongs in the pull request template.
 
 ## See also
 
